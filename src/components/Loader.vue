@@ -2,9 +2,11 @@
     <div id="pre-load">
         <div class="pre-load-background">
             <div class="pre-load-main">
-                <span class="pre-load-dot">.</span>
-                <span class="pre-load-dot">.</span>
-                <span class="pre-load-dot">.</span>
+                <div class="img-container">
+                    <div class="img-animation">
+                        <img src="@/assets/images/owl-logo-blink.png" class="blink"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -35,10 +37,10 @@ export default {
             const vm = this;
             setTimeout(() => {
                 vm.el.classList.add('leave');
-            }, 500);
+            }, 700);
             setTimeout(() => {
                 vm.el.classList.add('hide');
-            }, 1250);
+            }, 1450);
         },
     },
     props: [
@@ -55,4 +57,38 @@ export default {
     },
 };
 </script>
-
+<style lang="scss">
+    .img-animation{
+        overflow: hidden;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%,-50%,0);
+        img{
+            height: 200px;
+            display: block;
+            left:0;
+            position: absolute;
+            &.blink{
+                animation: blink 5s infinite;
+                animation-timing-function: steps(1);
+            }
+        }
+    }
+    
+    @keyframes blink {
+        0%   { top: 10px; left: -15px; }
+        12%  { left: -215px; }
+        14%  { left: -415px; }
+        16%  { left: -215px; }
+        18%  { left: -15px; }
+        32%  { left: -215px; }
+        34%  { left: -415px; }
+        36%  { left: -215px; }
+        38%  { left: -15px; }
+        100% { top: 10px; left: 0; }
+    }
+</style>

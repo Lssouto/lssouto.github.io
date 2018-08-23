@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <!--<img alt="Vue logo" src="./assets/logo.png">-->
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <index />
     <loader :show="loader"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Index from './views/Index.vue';
 import Loader from './components/Loader.vue';
 
 export default {
@@ -18,14 +18,11 @@ export default {
     };
   },
   components: {
-    HelloWorld,
+    Index,
     Loader,
   },
   mounted() {
-    const vm = this;
-    setTimeout(() => {
-      vm.loader = true;
-    }, 2000);
+    console.log('App Start');
   },
 };
 </script>
