@@ -92,4 +92,23 @@ export default {
 
 
 <style lang="scss" scoped>
+.container-typewriter{
+    display: inline-block;
+    overflow: hidden;
+    span{
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0;
+    }
+}
+span.blink-caret{
+    padding: 0 10px 0 0;
+    display: inline-block;
+    border-right: .15em solid #ccc;
+    animation: blink-caret .75s step-end infinite;
+}
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #ccc; }
+}
 </style>
