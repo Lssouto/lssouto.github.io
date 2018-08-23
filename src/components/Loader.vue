@@ -78,7 +78,6 @@ export default {
             }
         }
     }
-    
     @keyframes blink {
         0%   { top: 10px; left: -15px; }
         12%  { left: -215px; }
