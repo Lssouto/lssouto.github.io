@@ -78,16 +78,4 @@ export default {
             }
         }
     }
-    @keyframes blink {
-        0%   { top: 10px; left: -15px; }
-        12%  { left: -215px; }
-        14%  { left: -415px; }
-        16%  { left: -215px; }
-        18%  { left: -15px; }
-        32%  { left: -215px; }
-        34%  { left: -415px; }
-        36%  { left: -215px; }
-        38%  { left: -15px; }
-        100% { top: 10px; left: 0; }
-    }
 </style>

@@ -107,8 +107,5 @@ span.blink-caret{
     border-right: .15em solid #ccc;
     animation: blink-caret .75s step-end infinite;
 }
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #ccc; }
-}
+
 </style>

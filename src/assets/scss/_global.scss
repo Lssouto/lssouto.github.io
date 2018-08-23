@@ -1,0 +1,42 @@
+.relative{
+    position: relative;
+}
+.thin{
+    font-weight: thin;
+}
+.max-w{
+    width: 100%;
+}
+.p-0{
+    padding: 0 !important;
+}
+.m-0{
+    margin: 0 !important
+}
+
+//Flex
+.flex-align{
+    @include flex-align(1 1 auto);
+}
+
+//
+@include media($sm,'min'){
+    .mobile-only{
+        display: none;
+    }
+}
+@include media($md,'max'){
+    .desktop-only{
+        display: none;
+    }
+}
+
+//
+.container{
+    width: 1091px;
+    margin: 0 auto;
+    @include media($md,'max'){
+        width: 100%;
+        margin: 0;
+    }
+}
