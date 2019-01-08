@@ -20,7 +20,19 @@
   38%  { left: -15px; }
   100% { top: 10px; left: 0; }
 }
+@keyframes blink-min {
+  0%   { top: 10px; left: -15px; }
+  12%  { left: -165px; }
+  14%  { left: -315px; }
+  16%  { left: -165px; }
+  18%  { left: -15px; }
+  32%  { left: -165px; }
+  34%  { left: -315px; }
+  36%  { left: -165px; }
+  38%  { left: -15px; }
+  100% { top: 10px; left: 0; }
+}
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #ccc; }
+  from, to { border-right-color: transparent }
+  50% { border-right-color: #ccc; }
 }

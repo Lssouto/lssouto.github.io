@@ -7,8 +7,8 @@ $fa-font-path : '~font-awesome/fonts';
 // @import '~node_modules/flexboxgrid/css/flexboxgrid.css';
 // @import '~node_modules/font-awesome/scss/font-awesome';
 
-@import 'override';
 @import 'vars';
+@import 'override';
 @import 'mixins';
 @import 'global';
 

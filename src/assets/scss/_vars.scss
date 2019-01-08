@@ -11,12 +11,14 @@ $light-gray: #f2f2f2;
 $medium-gray: #7b7b7b;
 
 $white :            #fff;
-$primary :          #4589d6;
-$dark-primary:      #030027;
+$primary :          #1b84aa;
+$dark-primary:      darken($primary,10%);
 $secundary :        #8fcb9b;
-$dark-secundary:    #55846e;
+$dark-secundary:    darken($secundary,10%);
 $error:             #CC4B4B;
 $warning:           #ffd948;
 $purple:            #52239a;
 $orange:            #bb8521;
+
+$text-color: #2b2b2b;
 

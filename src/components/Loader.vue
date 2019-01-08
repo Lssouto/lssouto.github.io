@@ -1,5 +1,5 @@
 <template>
-    <div id="pre-load">
+    <div id="pre-load" :class="{'hidden': hide}">
         <div class="pre-load-background">
             <div class="pre-load-main">
                 <div class="img-container">
@@ -18,6 +18,7 @@ export default {
     data() {
         return {
             el: null,
+            hide: false,
         };
     },
     mounted() {
@@ -27,6 +28,7 @@ export default {
     methods: {
         showLoader() {
             const vm = this;
+            this.hide = false;
             this.el.classList.remove('hide');
             setTimeout(() => {
                 vm.el.classList.add('enter');
@@ -41,6 +43,9 @@ export default {
             setTimeout(() => {
                 vm.el.classList.add('hide');
             }, 1450);
+            setTimeout(() => {
+                vm.hide = true;
+            }, 1750);
         },
     },
     props: [
