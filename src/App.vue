@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Index from './views/Index.vue';
+import Index from './views/index/Index.vue';
 import Loader from './components/Loader.vue';
 
 export default {
@@ -22,7 +22,9 @@ export default {
     Loader,
   },
   mounted() {
-    console.log('App Start');
+    setTimeout(() => {
+      document.querySelector('#app').style.opacity = '1';
+    }, 1750);
   },
 };
 </script>
@@ -32,5 +34,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   position: relative;
   color: $text-color;
+  opacity: 0;
+  @extend .fast-e;
 }
 </style>

@@ -3,11 +3,13 @@ $bg-colors: (
     dark-primary:            $dark-primary $white,
     secundary:               $secundary $white,
     dark-secundary:          $dark-secundary $white,
+    accent:                  $accent $white,
     warning:                 $warning $white,
     error:                   $error $white,
     medium-gray:             $medium-gray $white,
     light-gray:              $light-gray $medium-gray,
     black:                   $black $white,
+    black-2:                 $black-2 $white,
     white:                   $white $medium-gray,
 );
 

@@ -1,6 +1,10 @@
 <template>
-    <div id="pre-load" :class="{'hidden': hide}">
+    <div id="pre-load" v-if="!hide" :class="state">
         <div class="pre-load-background">
+            <div class="pre-loader-effect">
+              <div class="wave-1"></div>
+              <div class="wave-2"></div>
+            </div>
             <div class="pre-load-main">
                 <div class="img-container">
                     <div class="img-animation">
@@ -17,34 +21,48 @@ export default {
     name: 'loader',
     data() {
         return {
-            el: null,
-            hide: false,
+            hide: true,
+            state: 'hide',
         };
     },
     mounted() {
-        this.el = document.getElementById('pre-load');
-        this.hideLoader();
+        this.removeOutsideLoader();
     },
     methods: {
-        showLoader() {
-            const vm = this;
-            this.hide = false;
-            this.el.classList.remove('hide');
+        removeOutsideLoader() {
+            const outsideLoader = document.querySelector('#pre-load.__outside');
+            if (!outsideLoader) { return; }
             setTimeout(() => {
-                vm.el.classList.add('enter');
-                vm.el.classList.remove('leave');
+                outsideLoader.querySelector('.pre-loader-effect').remove();
+                outsideLoader.querySelector('.initial-load-state').style.height = '254px';
+                outsideLoader.querySelector('.initial-load-state').style['margin-left'] = '-23px';
+            }, 100);
+            setTimeout(() => {
+                outsideLoader.classList.add('leave');
+            }, 700);
+            setTimeout(() => {
+                outsideLoader.classList.add('hide');
+            }, 1450);
+            setTimeout(() => {
+                outsideLoader.remove();
+            }, 1750);
+        },
+        showLoader() {
+            this.state = this.state.replace('leave ', '');
+            this.hide = false;
+            setTimeout(() => {
+                this.state = 'enter';
             }, 500);
         },
         hideLoader() {
-            const vm = this;
             setTimeout(() => {
-                vm.el.classList.add('leave');
+                this.state = 'leave ';
             }, 700);
             setTimeout(() => {
-                vm.el.classList.add('hide');
+                this.state += 'hide ';
             }, 1450);
             setTimeout(() => {
-                vm.hide = true;
+                this.hide = true;
             }, 1750);
         },
     },

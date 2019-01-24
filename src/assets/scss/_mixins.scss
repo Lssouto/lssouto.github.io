@@ -75,3 +75,51 @@
     -o-transition: all $spd cubic-bezier(0.4, 0.0, 0.2, 1) 0s;
     transition: all $spd cubic-bezier(0.4, 0.0, 0.2, 1) 0s;
 }
+
+@mixin note($color){
+    @include animation-spd(.24s);
+    // border: 1px solid $color;
+    // background: $color;
+    color: $black-2;
+    .sub-title {
+        color: $white;
+        background: $color;
+        border-bottom: 1px solid $white;
+    }
+    li { 
+        color: $black-2;
+        transition: color linear .1s .45s;
+    }
+    ul {
+        position: relative;
+        li {
+            position: relative;
+            z-index: 1;
+        }
+        &:before {
+            @include pseudo(absolute, block);
+            top: -10px;
+            left: 0;
+            height: 10px;
+            width: 0;
+            z-index: 0;
+            background: $color;
+            transition: width .45s cubic-bezier(0.4, 0.0, 0.2, 1) 0s,
+                        height .45s cubic-bezier(0.4,0.0, 0.2, 1) .45s;
+        }   
+    }
+    &.active {
+        color: $white;
+        li {
+            color: $white;
+        }
+        ul {
+            &:before {
+                top: 0;
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    
+}
