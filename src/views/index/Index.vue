@@ -3,7 +3,7 @@
         <owl :styles="owlStyle" :animationClass="owlState" />
         <section class="typewriter">
             <div class="container">
-                <div class="typewriter-container">
+                <div class="typewriter-container" v-show="showTypewriter">
                     <typewriter text="^.~, Tudo bom?" start="2300" duration="800"  />
                     <typewriter text="Este é meu ajudante" start="3000" duration="1400" />
                     <!--<typewriter text="^.~, Tudo bom?" start="1750" duration="800" />-->
@@ -144,7 +144,6 @@
                 this.owlAnimationBreakpoints.curious =
                     (this.getElementBreakpoint('section.work-details') +
                     document.querySelector('section.work-details').offsetHeight) + 75;
-                console.log(this.owlAnimationBreakpoints);
             },
             getElementBreakpoint(identifier) {
                 const el = document.querySelector(identifier);
@@ -157,6 +156,10 @@
             createChainAnimation() {
                 setTimeout(() => {
                     document.querySelector('section.typewriter').classList.add('active');
+                    if (!this.showTypewriter) {
+                        this.owlState = 'owl-to-center';
+                        document.querySelector('.circle-img-container').classList.add('min');// Computed not adding class
+                    }
                     setTimeout(() => {
                         document.querySelector('section.details p:first-child').classList.add('active');
                         this.pathStatus = 'first';
@@ -170,6 +173,9 @@
                     }, 480);
                 }, 2000);
             },
+        },
+        computed: {
+            showTypewriter: () => window.innerWidth > 768,
         },
     };
 </script>
@@ -226,6 +232,7 @@ section.details {
         }
         &-text {
             p {
+                @include animation-spd(.55s);
                 margin: 0;
                 font-size: 22px;
                 padding: 15px 25px;
@@ -233,24 +240,32 @@ section.details {
                 position: relative;
                 z-index: 21;
                 opacity: 0;
-                @include animation-spd(.55s);
+
                 &.active {
                     opacity: 1;
                 }
             }
             p:first-child {
-                width: 40%;
                 font-size: 26px;
-                margin-left: 55%;
                 transform: translate(0, -50%);
                 border: 1px solid $black-2;
+                margin-bottom: 50px;
             }
             p:last-child {
-                width: 45%;
                 font-size: 22px;
                 text-align: justify;
                 transform: translate(0, 35%);
                 border: 1px solid $primary;
+            }
+            @include media($sm, 'min') {
+                p:first-child {
+                    width: 40%;
+                    margin-left: 55%;
+                    margin-bottom: 0;
+                }
+                p:last-child {
+                    width: 45%;
+                }
             }
         }
     }

@@ -80,8 +80,8 @@
                             alt: 'Front-dev template',
                         },
                         link: 'https://github.com/Lssouto/front-dev',
-                        description: 'Um projeto de desenvolvimento front-end utilizando gulp, sass e babel. ' +
-                            'Fácil de integrar com outras estruturas, você pode definir onde exportar os arquivos ' +
+                        description: 'Um template de desenvolvimento front-end. ' +
+                            'Fácil de integrar com outras estruturas ' +
                             'ou apenas minimizar os arquivos e fazer o upload.',
                     },
                 ],
@@ -104,7 +104,10 @@ section.portifolio {
         & > li {
             overflow: hidden;
             position: relative;
-            height: 300px;
+            min-height: 210px;
+            @include media($md, 'min'){
+                height: 300px;
+            }
             img {
                 width: 100%;
                 /*height: 100%;*/
@@ -133,6 +136,7 @@ section.portifolio {
                 }
                 &-btn a{
                     margin-top: 10px;
+                    display: none;
                 }
             }
             /*Dark Mask*/
@@ -151,6 +155,9 @@ section.portifolio {
                 &:before,
                 .hover-container {
                     opacity: 1;
+                }
+                .portifolio-item-btn a {
+                    display: initial;
                 }
             }
         }

@@ -41,6 +41,7 @@
         name: 'Svg-paths',
         data() {
             return {
+                mobileBreakpoint: 768,
                 animations: {
                     first: 430,
                     second: 460,
@@ -81,31 +82,12 @@
             const p1 = document.querySelector('.details .section-text p:first-child');
             const p2 = document.querySelector('.details .section-text p:last-child');
 
-            this.pathPosition.first.startPosition = {
-                horizontal: p1.offsetLeft,
-                vertical: p1.offsetHeight / 2,
-            };
-            this.pathPosition.first.midPosition = {
-                horizontal: p2.offsetLeft + (p2.offsetWidth / 2),
-                vertical: p1.offsetHeight / 2,
-            };
-            this.pathPosition.first.endPosition = {
-                horizontal: p2.offsetLeft + (p2.offsetWidth / 2),
-                vertical: p2.offsetHeight,
-            };
-
-            this.pathPosition.second.startPosition = {
-                horizontal: p2.offsetLeft + p2.offsetWidth,
-                vertical: 55 + p1.offsetHeight + (p2.offsetHeight / 2),
-            };
-            this.pathPosition.second.midPosition = {
-                horizontal: p1.offsetLeft + (p2.offsetWidth / 2),
-                vertical: 55 + p1.offsetHeight + (p2.offsetHeight / 2),
-            };
-            this.pathPosition.second.endPosition = {
-                horizontal: p1.offsetLeft + (p2.offsetWidth / 2),
-                vertical: p1.offsetHeight,
-            };
+            // Mobile/Desktop
+            if (window.innerWidth > this.mobileBreakpoint) {
+                this.setWebConfig(p1, p2);
+            } else {
+                this.setMobileConfig(p1, p2);
+            }
         },
         methods: {
             pathEffect(elements, { distance, duration }, delay) {
@@ -131,6 +113,74 @@
                     }, current + delay);
                     current += 10;
                 }
+            },
+            setMobileConfig(p1, p2) {
+                this.pathPosition.first.startPosition = {
+                    horizontal: p1.offsetWidth * 0.2,
+                    vertical: p1.offsetHeight * 0.6,
+                };
+                this.pathPosition.first.endPosition = {
+                    horizontal: p2.offsetWidth * 0.2,
+                    vertical: p2.offsetHeight + (p2.offsetTop - p1.offsetTop),
+                };
+
+                this.pathPosition.second.startPosition = {
+                    horizontal: p2.offsetWidth * 0.8,
+                    vertical: p2.offsetHeight + (p2.offsetTop - p1.offsetTop),
+                };
+                this.pathPosition.second.endPosition = {
+                    horizontal: p2.offsetWidth * 0.8,
+                    vertical: p1.offsetHeight * 0.6,
+                };
+                this.animations = {
+                    first: 900,
+                    second: 0,
+                };
+            },
+            setWebConfig(p1, p2) {
+                this.pathPosition.first.startPosition = {
+                    horizontal: p1.offsetLeft,
+                    vertical: p1.offsetHeight / 2,
+                };
+                this.pathPosition.first.midPosition = {
+                    horizontal: p2.offsetLeft + (p2.offsetWidth / 2),
+                    vertical: p1.offsetHeight / 2,
+                };
+                this.pathPosition.first.endPosition = {
+                    horizontal: p2.offsetLeft + (p2.offsetWidth / 2),
+                    vertical: p2.offsetHeight,
+                };
+
+                this.pathPosition.second.startPosition = {
+                    horizontal: p2.offsetLeft + p2.offsetWidth,
+                    vertical: 55 + p1.offsetHeight + (p2.offsetHeight / 2),
+                };
+                this.pathPosition.second.midPosition = {
+                    horizontal: p1.offsetLeft + (p2.offsetWidth / 2),
+                    vertical: 55 + p1.offsetHeight + (p2.offsetHeight / 2),
+                };
+                this.pathPosition.second.endPosition = {
+                    horizontal: p1.offsetLeft + (p2.offsetWidth / 2),
+                    vertical: p1.offsetHeight,
+                };
+                this.animations = {
+                    first: 430,
+                    second: 460,
+                };
+            },
+            getFirstSvgs() {
+                return {
+                    top: document.querySelector('.paths .first-paths .path-top'),
+                    middle: document.querySelector('.paths .first-paths .path-middle'),
+                    bottom: document.querySelector('.paths .first-paths .path-bottom'),
+                };
+            },
+            getSecondSvgs() {
+                return {
+                    top: document.querySelector('.paths .second-paths .path-top'),
+                    middle: document.querySelector('.paths .second-paths .path-middle'),
+                    bottom: document.querySelector('.paths .second-paths .path-bottom'),
+                };
             },
             createPathEffect() {
                 const svg = {
@@ -195,11 +245,7 @@
                 }, { distance, duration: this.animations.second }, this.animations.first);
             },
             createSecondPathEffect() {
-                const svg = {
-                    top: document.querySelector('.paths .second-paths .path-top'),
-                    middle: document.querySelector('.paths .second-paths .path-middle'),
-                    bottom: document.querySelector('.paths .second-paths .path-bottom'),
-                };
+                const svg = this.getSecondSvgs();
 
                 const { startPosition, midPosition, endPosition } = this.pathPosition.second;
 
@@ -255,6 +301,66 @@
                     },
                 }, { distance, duration: this.animations.second }, this.animations.first);
             },
+            createMobilePathEffect() {
+                const svg = this.getFirstSvgs();
+
+                const { startPosition, endPosition } = this.pathPosition.first;
+
+
+                svg.top.setAttribute('d', `M ${startPosition.horizontal - 15} ${startPosition.vertical}`);
+                svg.middle.setAttribute('d', `M ${startPosition.horizontal} ${startPosition.vertical}`);
+                svg.bottom.setAttribute('d', `M ${startPosition.horizontal + 15} ${startPosition.vertical}`);
+
+                // First Path
+                const distance = endPosition.vertical - startPosition.vertical;
+
+                this.pathEffect({
+                    top: {
+                        el: svg.top,
+                        actualValue: `M ${startPosition.horizontal - 15} ${startPosition.vertical}`,
+                        field: 'v',
+                    },
+                    middle: {
+                        el: svg.middle,
+                        actualValue: `M ${startPosition.horizontal} ${startPosition.vertical}`,
+                        field: 'v',
+                    },
+                    bottom: {
+                        el: svg.bottom,
+                        actualValue: `M ${startPosition.horizontal + 15} ${startPosition.vertical}`,
+                        field: 'v',
+                    },
+                }, { distance, duration: this.animations.first }, 0);
+            },
+            createMobileSecondPathEffect() {
+                const svg = this.getSecondSvgs();
+
+                const { startPosition, endPosition } = this.pathPosition.second;
+
+                svg.top.setAttribute('d', `M ${startPosition.horizontal - 15} ${startPosition.vertical}`);
+                svg.middle.setAttribute('d', `M ${startPosition.horizontal} ${startPosition.vertical}`);
+                svg.bottom.setAttribute('d', `M ${startPosition.horizontal + 15} ${startPosition.vertical}`);
+
+                // First Path
+                const distance = startPosition.vertical - endPosition.vertical;
+                this.pathEffect({
+                    top: {
+                        el: svg.top,
+                        actualValue: `M ${startPosition.horizontal - 15} ${startPosition.vertical}`,
+                        field: 'v-',
+                    },
+                    middle: {
+                        el: svg.middle,
+                        actualValue: `M ${startPosition.horizontal} ${startPosition.vertical}`,
+                        field: 'v-',
+                    },
+                    bottom: {
+                        el: svg.bottom,
+                        actualValue: `M ${startPosition.horizontal + 15} ${startPosition.vertical}`,
+                        field: 'v-',
+                    },
+                }, { distance, duration: this.animations.first }, 0);
+            },
         },
         props: [
             'status',
@@ -263,11 +369,19 @@
             status(value) {
                 switch (value) {
                     case 'first':
-                        this.createPathEffect();
+                        if (window.innerWidth > this.mobileBreakpoint) {
+                            this.createPathEffect();
+                        } else {
+                            this.createMobilePathEffect();
+                        }
                         break;
 
                     case 'second':
-                        this.createSecondPathEffect();
+                        if (window.innerWidth > this.mobileBreakpoint) {
+                            this.createSecondPathEffect();
+                        } else {
+                            this.createMobileSecondPathEffect();
+                        }
                         break;
 
                     default:

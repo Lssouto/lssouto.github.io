@@ -1,5 +1,8 @@
 <template>
-    <div class="circle-img-container" :class="animationState" :style="animationStyle">
+    <div    class="circle-img-container"
+            :class="animationState"
+            :style="animationStyle"
+            @click="changeOwlPosition()">
         <div class="circle-img">
             <img src="@/assets/images/owl-logo-blink.png" class="blink" />
         </div>
@@ -36,6 +39,71 @@
             updateStyle(style) {
                 this.animationStyle = `transform: ${style}`;
             },
+            handleWebAnimation() {
+                let el;
+                switch (this.animationClass) {
+                    case 'owl-to-center': {
+                        el = document.querySelector('.details');
+                        this.setOwlTranslate(
+                            (el.offsetWidth / 2) - (document.querySelector('.circle-img-container').offsetWidth / 1.7),
+                            (el.getBoundingClientRect().top + (el.offsetHeight / 6)),
+                        );
+                        return 'initial';
+                    }
+
+                    case 'initial': {
+                        el = document.querySelector('section.typewriter');
+                        this.setOwlTranslate(
+                            (el.offsetWidth * 0.6),
+                            20,
+                        );
+                        return 'initial';
+                    }
+
+                    default: {
+                        const isUnderEffectOfClick = /rotate/;
+                        if (!isUnderEffectOfClick.test(this.animationStyle)) {
+                            this.updateStyle('translate3d( -70px, 200px, 0) rotate(90deg)');
+                        }
+                        return 'min';
+                    }
+                }
+            },
+            handleMobileAnimation() {
+                let el;
+                switch (this.animationClass) {
+                    case 'initial':
+                    case 'owl-to-center': {
+                        el = document.querySelector('.details');
+                        const p1 = document.querySelector('.details .section-text p:first-child');
+                        const p2 = document.querySelector('.details .section-text p:last-child');
+                        this.setOwlTranslate(
+                            (el.offsetWidth / 2) - (150 / 2),
+                            (p1.offsetTop + (p2.offsetTop - p1.offsetTop)) - 40,
+                        );
+                        break;
+                    }
+                    default: {
+                        const isUnderEffectOfClick = /rotate/;
+                        if (!isUnderEffectOfClick.test(this.animationStyle)) {
+                            this.updateStyle('translate3d( -90px, 200px, 0) rotate(90deg)');
+                        }
+                        break;
+                    }
+                }
+            },
+            changeOwlPosition() {
+                if (!this.animationClass !== 'curious') {
+                  const hPosition = (Math.round(Math.random()) === 1)
+                                        ? -70
+                                        : window.innerWidth - 70;
+                    let vPosition = (Math.round(Math.random() * 1000));
+                    while (vPosition > (window.innerHeight - 150)) { // 150 -> OwlSize
+                        vPosition -= window.innerHeight / 2;
+                    }
+                    this.updateStyle(`translate3d( ${hPosition}px, ${vPosition}px, 0) rotate(${hPosition > 0 ? '-90deg' : '90deg'})`);
+                }
+            },
         },
         watch: {
             styles(value) {
@@ -44,30 +112,11 @@
         },
         computed: {
             animationState() {
-                let el;
-
-                switch (this.animationClass) {
-                    case 'owl-to-center':
-                        el = document.querySelector('.details');
-                        this.setOwlTranslate(
-                            (el.offsetWidth / 2) - (document.querySelector('.circle-img-container').offsetWidth / 2),
-                            (el.getBoundingClientRect().top + (el.offsetHeight / 6)),
-                        );
-                        return 'initial';
-
-
-                    case 'initial':
-                        el = document.querySelector('section.typewriter');
-                        this.setOwlTranslate(
-                            (el.offsetWidth * 0.6),
-                            20,
-                        );
-                        return 'initial';
-
-                    default:
-                        this.updateStyle('translate3d( -70px, 200px, 0) rotate(90deg)');
-                        return 'min';
+                if (window.innerWidth > 768) {
+                    return this.handleWebAnimation();
                 }
+                    this.handleMobileAnimation();
+                    return 'min';
             },
         },
     };
