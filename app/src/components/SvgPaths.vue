@@ -140,24 +140,25 @@
             setWebConfig(p1, p2) {
                 this.pathPosition.first.startPosition = {
                     horizontal: p1.offsetLeft,
-                    vertical: p1.offsetHeight / 2,
+                    vertical: p1.offsetHeight / 3,
                 };
                 this.pathPosition.first.midPosition = {
                     horizontal: p2.offsetLeft + (p2.offsetWidth / 2),
-                    vertical: p1.offsetHeight / 2,
+                    vertical: p1.offsetHeight / 3,
                 };
                 this.pathPosition.first.endPosition = {
                     horizontal: p2.offsetLeft + (p2.offsetWidth / 2),
-                    vertical: p2.offsetHeight,
+                    // 30 = diff between start and end line
+                    vertical: (p2.offsetTop - p1.offsetTop) + 30,
                 };
 
                 this.pathPosition.second.startPosition = {
                     horizontal: p2.offsetLeft + p2.offsetWidth,
-                    vertical: 55 + p1.offsetHeight + (p2.offsetHeight / 2),
+                    vertical: (p2.offsetHeight) + (p2.offsetTop - p1.offsetTop),
                 };
                 this.pathPosition.second.midPosition = {
                     horizontal: p1.offsetLeft + (p2.offsetWidth / 2),
-                    vertical: 55 + p1.offsetHeight + (p2.offsetHeight / 2),
+                    vertical: (p2.offsetHeight) + (p2.offsetTop - p1.offsetTop),
                 };
                 this.pathPosition.second.endPosition = {
                     horizontal: p1.offsetLeft + (p2.offsetWidth / 2),

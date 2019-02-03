@@ -80,9 +80,9 @@
             };
         },
         mounted() {
-            window.scrollTo(0, 0);
             this.getOwlAnimationBreakpoints();
             this.createChainAnimation();
+            window.scrollTo(0, 0);
         },
         beforeMount() {
             window.addEventListener('scroll', this.handleScroll);
@@ -157,7 +157,7 @@
                 setTimeout(() => {
                     document.querySelector('section.typewriter').classList.add('active');
                     if (!this.showTypewriter) {
-                        this.owlState = 'owl-to-center';
+                        this.changeOwlState('owl-to-center');
                         document.querySelector('.circle-img-container').classList.add('min');// Computed not adding class
                     }
                     setTimeout(() => {

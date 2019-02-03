@@ -46,7 +46,7 @@
                         el = document.querySelector('.details');
                         this.setOwlTranslate(
                             (el.offsetWidth / 2) - (document.querySelector('.circle-img-container').offsetWidth / 1.7),
-                            (el.getBoundingClientRect().top + (el.offsetHeight / 6)),
+                            ((el.offsetTop - window.pageYOffset) + (el.offsetHeight / 6)),
                         );
                         return 'initial';
                     }
@@ -62,7 +62,10 @@
 
                     default: {
                         const isUnderEffectOfClick = /rotate/;
-                        if (!isUnderEffectOfClick.test(this.animationStyle)) {
+                        if (
+                                !isUnderEffectOfClick.test(this.animationStyle)
+                                && window.pageYOffset !== 0
+                            ) {
                             this.updateStyle('translate3d( -70px, 200px, 0) rotate(90deg)');
                         }
                         return 'min';
@@ -75,11 +78,9 @@
                     case 'initial':
                     case 'owl-to-center': {
                         el = document.querySelector('.details');
-                        const p1 = document.querySelector('.details .section-text p:first-child');
-                        const p2 = document.querySelector('.details .section-text p:last-child');
                         this.setOwlTranslate(
                             (el.offsetWidth / 2) - (150 / 2),
-                            (p1.offsetTop + (p2.offsetTop - p1.offsetTop)) - 40,
+                            ((el.offsetTop - window.pageYOffset) + (el.offsetHeight / 4)),
                         );
                         break;
                     }
@@ -95,8 +96,8 @@
             changeOwlPosition() {
                 if (!this.animationClass !== 'curious') {
                   const hPosition = (Math.round(Math.random()) === 1)
-                                        ? -70
-                                        : window.innerWidth - 70;
+                                        ? -90
+                                        : window.innerWidth - 50;
                     let vPosition = (Math.round(Math.random() * 1000));
                     while (vPosition > (window.innerHeight - 150)) { // 150 -> OwlSize
                         vPosition -= window.innerHeight / 2;
@@ -115,14 +116,15 @@
                 if (window.innerWidth > 768) {
                     return this.handleWebAnimation();
                 }
-                    this.handleMobileAnimation();
-                    return 'min';
+                this.handleMobileAnimation();
+                return 'min';
             },
         },
     };
 </script>
 <style lang="scss">
 .circle-img-container {
+    cursor: pointer;
     position: fixed;
     transform: translate3d(-50%,-50%,0);
     z-index: 50;

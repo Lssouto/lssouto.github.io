@@ -27,7 +27,6 @@
             this.initialHeight =
                 parseInt(getComputedStyle(this.$refs.note).height.replace('px', ''), 10);
             this.changeState();
-            console.log(this.elementHeight, this.initialHeight, this.collapsedHeight);
         },
         methods: {
             changeState() {
