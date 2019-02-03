@@ -4,32 +4,32 @@ self.__precacheManifest = [
     "url": "/img/portifolio-trabalhar-nos-eua-2.9c52602b.png"
   },
   {
-    "revision": "07e1ab36d86f09582014f6a1cd81ed25",
-    "url": "/img/owl-logo.svg"
-  },
-  {
-    "revision": "47776ec8a8ae43d94a48",
-    "url": "/js/chunk-vendors.265fc9c6.js"
-  },
-  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/robots.txt"
-  },
-  {
-    "revision": "64e5a5092a97d8f5b6fbd74a76075ffe",
-    "url": "/index.html"
   },
   {
     "revision": "38c613da654864a88bcbda6268f45529",
     "url": "/img/portifolio-diario-oficial-2.38c613da.png"
   },
   {
+    "revision": "47776ec8a8ae43d94a48",
+    "url": "/js/chunk-vendors.265fc9c6.js"
+  },
+  {
+    "revision": "ecc9de5626457a4bf314",
+    "url": "/js/app.4729c3bb.js"
+  },
+  {
+    "revision": "f529fd53b73f029adb77734c84b0e48e",
+    "url": "/index.html"
+  },
+  {
     "revision": "7d231d7a686ff253258bc34cccff16c0",
     "url": "/img/portifolio-tec-gelo.7d231d7a.png"
   },
   {
-    "revision": "a8c4aef97b06989e812e",
-    "url": "/js/app.19ba73a0.js"
+    "revision": "07e1ab36d86f09582014f6a1cd81ed25",
+    "url": "/img/owl-logo.svg"
   },
   {
     "revision": "a1e1eebf4ef35fa8f7f249c720e4ea17",
@@ -48,8 +48,8 @@ self.__precacheManifest = [
     "url": "/favicon.png"
   },
   {
-    "revision": "a8c4aef97b06989e812e",
-    "url": "/css/app.adafc2e1.css"
+    "revision": "ecc9de5626457a4bf314",
+    "url": "/css/app.012490cc.css"
   },
   {
     "revision": "1c78ff4c4c8ad09e95945dac9ff00577",
